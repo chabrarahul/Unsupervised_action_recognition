@@ -1,3 +1,43 @@
+import cv2
+import numpy as np
+import json
+
+#jsonfile = "/content/drive/MyDrive/skel_out/alphapose-results.json"
+json_file=open("/content/drive/MyDrive/skel_out_tire_new_final/alphapose-results.json",)
+print(json_file)
+tracks=json.load(json_file)
+print(tracks)
+lastframe = -1 #name of the first frame
+skeletons = []
+#bboxes = []
+tracklist = [] #storing whether the person is in track in certain frames
+isLead = False
+for track in (tracks):
+    frame = int(track['image_id'][:-4])
+    if not isLead:
+        if track['idx']!=1:
+            continue
+        else:
+            isLead = True
+            LeadStart = frame
+            lastframe = frame
+    #if lastframe==frame:
+    #    continue
+    if track['idx']!=1:
+        continue
+    for i in range(frame-lastframe-1): #number of frames that has been skipped
+        skeletons.append(np.zeros((17,3)))
+        tracklist.append(0)
+        #bboxes.append(0)
+    pts = np.array(track['keypoints'])
+    skeletons.append(pts)
+    tracklist.append(1)
+    #bboxes.append(track['box'])
+    lastframe = frame
+
+print(len(skeletons))
+
+
 import numpy as np
 import cv2
 velocity_vec = []
