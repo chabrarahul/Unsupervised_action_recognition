@@ -1,9 +1,9 @@
 import torch
 
-
-inputs = torch.from_numpy(new_axis)
+#input is the input which has size (1, 1239, 34) where 1 is the batch size 1239 is the is the input and 34 is the skeleton information. 
+inputs = torch.from_numpy(input)
 inputs=inputs.type(torch.float)
-input_size = 51    #(without object)
+input_size = num_input # 34 is the skeleton for each input   #(without object)
 batch_size = 1
 hidden_size = 100
 num_layers = 1
@@ -20,7 +20,8 @@ print(hidden[1].dtype)
 out,hidden = lstm(inputs,hidden)
 print(out.size())
 skeleton_numpy = out.detach().numpy()
-input_skeleton = np.squeeze(skeleton_numpy, axis=0)
+input_skeleton = np.squeeze(skeleton_numpy, axis=0) # dimension of input skeleton is (1239,hidden_size) 
+
 
 
 from sklearn.cluster import KMeans
@@ -32,7 +33,7 @@ new_skeleton = skeleton_arr[:470,[6]] - skeleton_arr[:470,[10]]
 #print(input_skeleton.shape)
 model.fit(new_skeleton)
 label_x = model.labels_
-data = label_x
+data = label_x # array contains cluster number for each input
 print(label_x)
 
 
