@@ -23,5 +23,19 @@ skeleton_numpy = out.detach().numpy()
 input_skeleton = np.squeeze(skeleton_numpy, axis=0)
 
 
+from sklearn.cluster import KMeans
+
+model = KMeans(n_clusters=4)
+#input_skeleton = skeleton_arr[:,[5,6,9,10]]
+new_skeleton = skeleton_arr[:470,[6]] - skeleton_arr[:470,[10]]
+#input_skeleton = input_skeleton1[:,[6]]
+#print(input_skeleton.shape)
+model.fit(new_skeleton)
+label_x = model.labels_
+data = label_x
+print(label_x)
+
+
+
 
 
