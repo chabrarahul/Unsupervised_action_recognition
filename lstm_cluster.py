@@ -1,4 +1,6 @@
 import torch
+
+
 inputs = torch.from_numpy(new_axis)
 inputs=inputs.type(torch.float)
 input_size = 51    #(without object)
