@@ -1,4 +1,4 @@
-# Unsupervised_action_segmentation
+# Unsupervised_action_recognition
 
 This repository contains implementatation of unsupervised 3D skeleton based action recognition using lstm and transformers. 
 
